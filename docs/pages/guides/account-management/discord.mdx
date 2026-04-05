@@ -46,15 +46,16 @@ on their own accounts.
 
 ### Account Security Checklist
 
-- [ ] User Settings > My Account: Ensure **2FA** is enabled (authenticator app and/or security key), Remove a phone
+- [ ] User Settings > My Account: Ensure **2FA** is enabled (using an authenticator app and/or security key), Remove a phone
   number if you have one added to your account, and after 2FA is setup select **View Backup Codes**, and note down
   your backup codes offline
 - [ ] User Settings > My Account: Ensure **SMS Backup Authentication** is **disabled**
-- [ ] User Settings > Content & Social > Social Permissions: Allow DMs from other server members > **Disabled**
+- [ ] User Settings > Content & Social > Social Permissions > Direct Messages: Allow DMs from other server members > **Disabled**
 - [ ] User Settings > Content & Social > Direct Message Spam: Select **Filter all** to filter all DMs for spam
   (encourages moderators and community members to adopt the same setting to minimize phishing DMs)
+- [ ] User Settings > Data & Privacy > Allow my voice to be recorded in Clips > **Disabled**
 - [ ] User Settings > Authorized Apps: Review and **Deauthorize** any unnecessary apps
-- [ ] User Setting > Devices: Review and remove unnecessary devices, or **Log Out All Known Devices**
+- [ ] User Settings > Devices: Review and remove unnecessary devices, or **Log Out All Known Devices (Option at bottom of page)**
 - [ ] User Settings > Connections: Review and remove any unnecessary connections
 
 ---
@@ -69,6 +70,7 @@ Team members should:
   you to see what members with a certain role can see and access
 - Be aware of the server's AutoMod rules for: Spam, Harmful Links, Mention Spam, Inappropriate Words, and any custom
   keyword filters and exempted roles
+- Should avoid using messaging such as DMs outside of the server and only community via official public or private channels within the Discord Server
 
 ---
 
@@ -80,21 +82,21 @@ These settings and practices apply to server administrators with elevated privil
 
 #### Safety Setup
 
-- Safety Setup > Moderation:
-  - [ ] Require 2FA for moderation > **Enabled**
+- Server Settings > Safety Setup > Permissions:
+  - [ ] Require 2FA for moderation actions > **Enabled**
   - This ensures all moderators have an extra layer of security
-- Safety Setup > Verification Level:
+- Server Settings > Safety Setup > DM and Spam Protection > Verification Level:
   - [ ] Choose from: None, Low, Medium, High, Highest
   - [ ] Set to at least **Medium** (registered on Discord for 5+ minutes) — Recommended: "Moderate" for public servers
   - Higher levels protect against spammers and raids
-- Safety Setup > Raid Protection and CAPTCHA:
+- Server Settings > Safety Setup > Raid Protection and CAPTCHA:
   - [ ] Activate all relevant settings to require CAPTCHA for new user actions
   - [ ] Activity Alerts > **Enabled**
   - [ ] CAPTCHA suspicious accounts before they are able to join > **Enabled**
   - [ ] CAPTCHA all accounts before they are able to join during a suspected raid > **Enabled**
   - This protection uses machine learning to detect and block bot-driven join-raids. When activated, it sends alerts
     to a specified channel and requires CAPTCHA verification for new users for one hour after detection.
-- Safety Setup > DM and Spam Protection:
+- Server Settings > Safety Setup > DM and Spam Protection:
   - [ ] Hide DMs from suspicious users > **Enabled**
   - [ ] Filter DMs from unknown users > **Enabled**
   - [ ] Warn members before they visit outbound links > **Enabled**
@@ -104,9 +106,9 @@ These settings and practices apply to server administrators with elevated privil
 
 - Server Settings > Safety Setup > AutoMod:
   - [ ] Set up rules for: **Spam**, **Harmful Links**, **Mention Spam**, **Inappropriate Words**
-  - [ ] Configure custom keyword filters and exempted roles
+  - [ ] Configure custom keyword filters based on phrases/regex and exempted roles
   - [ ] Customize the response to spam (block message, send alert, timeout member)
-  - [ ] Add to the existing automod rule to block keywords in a user's name: Support, Bot, Admin, Tech, Helpdesk, etc.
+  - [ ] Add to the existing AutoMod rule to block keywords in a user's name: Support, Bot, Admin, Tech, Helpdesk, etc.
   - [ ] Create a private channel that mods, team, and admins have visibility to and set each AutoMod rule to send
     logs to that channel for review
 
@@ -114,12 +116,14 @@ These settings and practices apply to server administrators with elevated privil
 
 - Server Settings > Engagement > Default Notification Settings: Select **Only @mentions**
   - Reduces potential spam notifications for members, making them more vigilant about suspicious or phishing content
+- Server Settings > Access > Server Rules > **Enable** and include the preset rules or your own rules
+  - This forces user to accept your server rules prior to entering and also enables another step to stop bots from joining
 
 #### Roles
 
 - Server Settings > Roles:
   - [ ] Review admin role members — high-privilege roles with **Administrator** permission should have **2-3 members
-    max**
+    max**.  
   - [ ] Review bot role permissions and confirm members list contains only the bot user
   - [ ] Review mod role permissions and members list
   - [ ] Review user role permissions — watch for: **Manage Channels**, **Manage Roles**, **Manage Webhooks**, **Manage
@@ -128,12 +132,12 @@ These settings and practices apply to server administrators with elevated privil
   - [ ] Check channel-level permission overrides on private channels
 
 > **Note on Role Permissions:** For each role, carefully review the 32 available permissions. Key permissions to
-> restrict: Administrator, Manage Webhooks, Manage Server, Manage Roles, & Manage Channels. Never give Admin or Kick
+> restrict: Administrator, Manage Webhooks, Manage Server, Manage Roles, & Manage Channels. Never give Admin or Kick/Ban
 > permissions to anyone you don't fully trust.
 >
 > **Administrator** should ideally be reserved for a single admin role with minimal members. It is recommended to have
 > no more than 2-3 admins with this privilege in order to reduce risk due to account compromise and insider threats,
-> but to retain some redundancy.
+> but to retain some redundancy. Although we recommend to now give any roles administrator natively and recommend using a security bot to give administrative permissions in a time-bound manner.
 >
 > Minimal bots actually need **Administrator** permissions. Review what permissions a bot actually needs and do not
 > default to Admin permissions just because developers request it as the easy option. If a bot does require
@@ -243,7 +247,7 @@ Beyond enabling in Safety Setup:
 
 - Implement a verification bot like Wick that does in-channel captcha for users to join the server
 - Require users to complete an in-channel captcha before accessing the server
-- Advance Settings: Have verification bot filter based on account age, PFP set, and timeout for incomplete captcha
+- Advanced Settings: Have verification bot filter based on account age, PFP set, and timeout for incomplete captcha
 
 ---
 
@@ -260,7 +264,7 @@ When creating invites:
 
 - Ensure admin/mod roles have "View Audit Log" permission
 - Create a private logging channel visible only to admins/mods
-- Use a logging bot like Logger or Dyno to send detailed logs
+- Use a logging bot like Logger or [Dyno](https://dyno.gg/) to send detailed logs
 - Configure audit log output to a private channel for easier monitoring
 
 ---
@@ -280,13 +284,13 @@ impersonate you or other important members of the server. A popular bot in this 
 #### Anti-Raid Bots
 
 To prevent spam bots from joining your server all at once, an attack known as raiding, you can also set up bots with
-particular rules. Beemo is a good example of a bot in this category.
+particular rules. [Beemo](https://beemo.gg/) is a good example of a bot in this category.
 
 #### Anti-Nuke Bots
 
 This is a monitoring system to observe and note any changes (spontaneous or planned) that take place in your discord
 server. Some key observation markers are channel and role creation/deletions, banning or kicking members, and webhook
-creation/deletion.
+creation/deletion. [Wick](https://wickbot.com/) is a good example of a bot in this category.
 
 #### Moderation & Link Whitelisting Bots
 
@@ -294,7 +298,7 @@ Only allows approved links to be used in the discord server. A popular bot in th
 
 #### General Moderation Bots
 
-Consider bots like Dyno for advanced moderation and logging, or Carl-bot for reaction roles and custom commands. Set
+Consider bots like [Dyno](https://dyno.gg/) for advanced moderation and logging, or Carl-bot for reaction roles and custom commands. Set
 up security Bots as described above.
 
 _The bots above are not all-inclusive but rather a recommended list of bots to help protect your Discord server in
@@ -360,7 +364,7 @@ Head to [https://discord.com](https://discord.com) and create a new account usin
 
 - [ ] Write down the email, username, password, and date of birth **offline**
 - [ ] Use a username that is not related to your project
-- [ ] Give the profile a profile picture in **My Account > Edit User Profile**
+- [ ] Add a profile picture in **My Account > Edit User Profile**
 - [ ] Go to **Content & Social** and disable DMs from server members and set spam filter to maximum
 - [ ] Set the account status to **Invisible** so no one can see if it's online (click profile in bottom left > change status)
 
@@ -412,6 +416,7 @@ dots > Select **Transfer Ownership** > Input 2FA > Confirm
 
 - Consult the official [Discord Moderator Academy](https://discord.com/moderation) for ongoing best practices and new features
 - Implement recommended strategies (e.g., improved spam filters, updated role recommendations)
+- Subscribe to [Discord status](https://discordstatus.com/) to get alerts on anytime Discord may be having issues
 
 ---
 
